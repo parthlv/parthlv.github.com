@@ -6,63 +6,79 @@
   <title>JSON Table Display</title>
   <style>
     body {
-      font-family: Monaco, monospace;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
     }
 
-    table {
-      border-collapse: collapse;
-      width: 100%;
+    h1 {
+      text-align: center;
+      color: #333;
       margin-top: 20px;
     }
 
+    #table-container, #variants-table-container {
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
     th, td {
-      border: 1px solid #ddd;
       padding: 12px;
       text-align: left;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      border-bottom: 1px solid #ddd;
     }
 
     th {
       background-color: #f2f2f2;
       text-transform: uppercase;
+      font-weight: bold;
+      color: #333;
+    }
+
+    td {
+      color: #666;
     }
 
     .nested-table {
-      border-collapse: collapse;
       width: 100%;
+      border-collapse: collapse;
       margin: 0;
     }
 
     .nested-table th, .nested-table td {
-      border: 1px solid #ddd;
       padding: 8px;
       text-align: left;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      border-bottom: 1px solid #ddd;
     }
 
     .nested-cell {
       padding-left: 20px;
     }
 
-    /* Decrease column size without wrapping for specific columns */
-    #table-container td:nth-child(4), /* EDITION */
-    #table-container td:nth-child(5), /* ID */
-    #table-container td:nth-child(6), /* PRICE */
-    #table-container td:nth-child(7), /* COST */
-    #table-container td:nth-child(8)  /* NAME */ {
-      max-width: 100px; /* Adjust the max-width as needed */
-    }
-
-    #variants-table-container td:nth-child(5), /* EDITION */
-    #variants-table-container td:nth-child(6), /* ID */
-    #variants-table-container td:nth-child(7), /* PRICE */
-    #variants-table-container td:nth-child(8), /* COST */
-    #variants-table-container td:nth-child(9)  /* NAME */ {
-      max-width: 100px; /* Adjust the max-width as needed */
+    #table-container td:nth-child(4),
+    #table-container td:nth-child(5),
+    #table-container td:nth-child(6),
+    #table-container td:nth-child(7),
+    #table-container td:nth-child(8),
+    #variants-table-container td:nth-child(5),
+    #variants-table-container td:nth-child(6),
+    #variants-table-container td:nth-child(7),
+    #variants-table-container td:nth-child(8),
+    #variants-table-container td:nth-child(9) {
+      max-width: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   </style>
 </head>
@@ -72,6 +88,13 @@
 
   <div id="table-container"></div>
   <div id="variants-table-container"></div>
+
+  <script>
+    // ... (unchanged script)
+  </script>
+
+</body>
+</html>
 
   <script>
 // Fetch JSON data from GitHub Pages
