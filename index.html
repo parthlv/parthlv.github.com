@@ -80,11 +80,29 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+    /* Specific styling for EDITION, ID, PRICE, STOCK columns */
+    #table-container td:nth-child(4),
+    #variants-table-container td:nth-child(5),
+    #table-container td:nth-child(5),
+    #variants-table-container td:nth-child(6),
+    #table-container td:nth-child(6),
+    #variants-table-container td:nth-child(7),
+    #table-container td:nth-child(7),
+    #variants-table-container td:nth-child(8),
+    #table-container td:nth-child(8),
+    #variants-table-container td:nth-child(9),
+    #table-container td:nth-child(9) {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
   </style>
 </head>
 <body>
 
-  <h1>Product Inventory</h1>
+  <h1>Product Information</h1>
 
   <div id="table-container"></div>
   <div id="variants-table-container"></div>
