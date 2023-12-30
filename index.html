@@ -1,118 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JSON Table Display</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: Monaco, monospace;
+      background-color: #f8f8f8;
       margin: 0;
       padding: 0;
-      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
     }
 
     h1 {
       text-align: center;
       color: #333;
-      margin-top: 20px;
     }
 
-    #table-container, #variants-table-container {
-      max-width: 800px;
-      margin: 20px auto;
+    .table-container {
+      width: 80%;
       background-color: #fff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
       border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .nested-table-container {
+      width: 80%;
+      margin: 20px auto;
+      background-color: #f8f8f8;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
     }
 
     table {
-      width: 100%;
       border-collapse: collapse;
+      width: 100%;
     }
 
-    th, td {
+    th,
+    td {
+      border: 1px solid #ddd;
       padding: 12px;
       text-align: left;
-      border-bottom: 1px solid #ddd;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     th {
       background-color: #f2f2f2;
       text-transform: uppercase;
       font-weight: bold;
-      color: #333;
     }
 
-    td {
-      color: #666;
-    }
-
-    .nested-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 0;
-    }
-
-    .nested-table th, .nested-table td {
+    .nested-table th,
+    .nested-table td {
+      border: 1px solid #ddd;
       padding: 8px;
       text-align: left;
-      border-bottom: 1px solid #ddd;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .nested-cell {
       padding-left: 20px;
     }
 
-    #table-container td:nth-child(4),
-    #table-container td:nth-child(5),
-    #table-container td:nth-child(6),
-    #table-container td:nth-child(7),
-    #table-container td:nth-child(8),
-    #variants-table-container td:nth-child(5),
-    #variants-table-container td:nth-child(6),
-    #variants-table-container td:nth-child(7),
-    #variants-table-container td:nth-child(8),
-    #variants-table-container td:nth-child(9) {
-      max-width: 100px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    /* Decrease column size without wrapping for specific columns */
+    .table-container td:nth-child(4),
+    /* EDITION */
+    .table-container td:nth-child(5),
+    /* ID */
+    .table-container td:nth-child(6),
+    /* PRICE */
+    .table-container td:nth-child(7),
+    /* COST */
+    .table-container td:nth-child(8) /* NAME */ {
+      max-width: 80px;
+      /* Adjust the max-width as needed */
     }
-    /* Specific styling for EDITION, ID, PRICE, STOCK columns */
-    #table-container td:nth-child(4),
-    #variants-table-container td:nth-child(5),
-    #table-container td:nth-child(5),
-    #variants-table-container td:nth-child(6),
-    #table-container td:nth-child(6),
-    #variants-table-container td:nth-child(7),
-    #table-container td:nth-child(7),
-    #variants-table-container td:nth-child(8),
-    #table-container td:nth-child(8),
-    #variants-table-container td:nth-child(9),
-    #table-container td:nth-child(9) {
-  max-width: 100px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
 
+    .nested-table-container td:nth-child(5),
+    /* EDITION */
+    .nested-table-container td:nth-child(6),
+    /* ID */
+    .nested-table-container td:nth-child(7),
+    /* PRICE */
+    .nested-table-container td:nth-child(8),
+    /* COST */
+    .nested-table-container td:nth-child(9) /* NAME */ {
+      max-width: 80px;
+      /* Adjust the max-width as needed */
+    }
+
+    .table-container th:nth-child(3),
+    .table-container td:nth-child(3),
+    .nested-table-container th:nth-child(3),
+    .nested-table-container td:nth-child(3) {
+      display: none;
+    }
   </style>
 </head>
+
 <body>
 
   <h1>Product Information</h1>
 
-  <div id="table-container"></div>
-  <div id="variants-table-container"></div>
-
-  <script>
-    // ... (unchanged script)
-  </script>
-
-</body>
-</html>
+  <div class="table-container" id="table-container"></div>
+  <div class="nested-table-container" id="variants-table-container"></div>
 
   <script>
 // Fetch JSON data from GitHub Pages
@@ -139,11 +144,14 @@ async function fetchData() {
 }
 
 fetchData();
+    const jsonDataWithoutVariants = jsonData.map(({ variants, ...rest }) => rest);
+    createTable(jsonDataWithoutVariants, 'table-container');
 
-// Create table dynamically
-function createTable(data, containerId) {
-  // ... (unchanged code)
-}
+    // Extract and create a separate table for the variants
+    const variantsData = jsonData.flatMap(item => item.variants || []);
+    if (variantsData.length > 0) {
+      createTable(variantsData, 'variants-table-container');
+    }
 
     // Create table dynamically
     function createTable(data, containerId) {
@@ -205,6 +213,23 @@ function createTable(data, containerId) {
             });
             nestedTable.appendChild(nestedTbody);
             td.appendChild(nestedTable);
+          } else if (key === 'details' && typeof value === 'object') {
+            // Handle 'DETAILS' field with nested table
+            const nestedTable = document.createElement('table');
+            nestedTable.classList.add('nested-table');
+            const nestedTbody = document.createElement('tbody');
+            Object.entries(value).forEach(([detailKey, detailValue]) => {
+              const nestedRow = document.createElement('tr');
+              const nestedKeyCell = document.createElement('td');
+              nestedKeyCell.textContent = detailKey.charAt(0).toUpperCase() + detailKey.slice(1);
+              const nestedValueCell = document.createElement('td');
+              nestedValueCell.textContent = detailValue;
+              nestedRow.appendChild(nestedKeyCell);
+              nestedRow.appendChild(nestedValueCell);
+              nestedTbody.appendChild(nestedRow);
+            });
+            nestedTable.appendChild(nestedTbody);
+            td.appendChild(nestedTable);
           } else if (typeof value === 'object' && !Array.isArray(value)) {
             // Handle nested objects (excluding arrays)
             td.textContent = JSON.stringify(value);
@@ -229,4 +254,5 @@ function createTable(data, containerId) {
   </script>
 
 </body>
+
 </html>
