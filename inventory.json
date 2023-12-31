@@ -157,7 +157,7 @@
                 "name": "Plain Variant",
                 "price": 220,
                 "stock": {
-                    "L": 2,
+                    "L": 20,
                     "M": 10,
                     "XL": 23
                 }
