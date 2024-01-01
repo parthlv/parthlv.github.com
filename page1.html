@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Batch Information</title>
+  <style>
+    body {
+      font-family: Monaco, monospace;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start; /* Align to the top */
+      min-height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .table-container {
+      width: 80%;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+      border-radius: 8px;
+      overflow: auto; /* Enable horizontal scrolling */
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    td a {
+      text-decoration: underline;
+      cursor: pointer;
+      color: blue;
+    }
+
+    .nested-table th,
+    .nested-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Batch Information</h1>
+
+  <div class="table-container" id="table-container"></div>
+
+  <script>
+    // JSON data
+    const jsonData = [
+      {"availability":"available","batchcost":200,"batchid":1,"batchprice":250,"colors":["black","white"],"created":{"T":0,"I":0},"name":"Tshirt-CS-79180-COTTON-DTF","sizes":["M","L","XL"],"supplier":{"location":"Surat","name":"Cryston India","rating":3}},
+      {"availability":"not available","batchcost":175,"batchid":2,"batchprice":250,"colors":{"black":{"L":23,"M":10,"XL":11},"white":{"L":5,"M":3,"XL":7}},"created":{"T":0,"I":0},"name":"Tshirt-CS-79180-COTTON-PLAIN","sizes":["M","L","XL"],"supplier":{"location":"Surat","name":"Cryston India","rating":3}}
+    ];
+
+    const tableContainer = document.getElementById('table-container');
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
+
+    // Create table header
+    const headerRow = document.createElement('tr');
+    const keys = Object.keys(jsonData[0]);
+    
+    // Remove 'VARIANTS' column from the header
+    keys.splice(keys.indexOf('variants'), 1);
+    
+    // Move 'NAME' column to the first position
+    keys.splice(keys.indexOf('name'), 1);
+    keys.unshift('name');
+    
+    keys.forEach(key => {
+      const th = document.createElement('th');
+      th.textContent = key.toUpperCase();
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+
+    // Create table rows
+    jsonData.forEach(item => {
+      const row = document.createElement('tr');
+      keys.forEach(key => {
+        const td = document.createElement('td');
+        const value = item[key];
+        if (key === 'name') {
+          // Make the batch name a clickable link
+          const link = document.createElement('a');
+          link.textContent = value;
+          link.href = `page2.html?batchId=${item.batchid}`;
+          link.onclick = function() {
+            // Navigate to page2.html with batchId as a query parameter
+            window.location.href = `page2.html?batchId=${item.batchid}`;
+            return false; // Prevent default link behavior
+          };
+          td.appendChild(link);
+        } else if (key === 'supplier' && typeof value === 'object') {
+          // Handle 'SUPPLIER' field with nested table
+          const nestedTable = document.createElement('table');
+          nestedTable.classList.add('nested-table');
+          const nestedTbody = document.createElement('tbody');
+          Object.entries(value).forEach(([nestedKey, nestedValue]) => {
+            const nestedRow = document.createElement('tr');
+            const nestedKeyCell = document.createElement('td');
+            nestedKeyCell.textContent = nestedKey.charAt(0).toUpperCase() + nestedKey.slice(1);
+            const nestedValueCell = document.createElement('td');
+            nestedValueCell.textContent = nestedValue;
+            nestedRow.appendChild(nestedKeyCell);
+            nestedRow.appendChild(nestedValueCell);
+            nestedTbody.appendChild(nestedRow);
+          });
+          nestedTable.appendChild(nestedTbody);
+          td.appendChild(nestedTable);
+        } else {
+          td.textContent = value;
+        }
+        row.appendChild(td);
+      });
+      tbody.appendChild(row);
+    });
+
+    // Append thead and tbody to the table
+    table.appendChild(thead);
+    table.appendChild(tbody);
+
+    // Append the table to the container
+    tableContainer.appendChild(table);
+  </script>
+
+</body>
+
+</html>
