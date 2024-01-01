@@ -72,102 +72,105 @@
   <div class="table-container" id="variants-table-container"></div>
 
   <script>
-    // JSON data
-    const jsonData = [
-      {"availability":"available","batchcost":200,"batchid":1,"batchprice":250,"colors":["black","white"],"created":{"T":0,"I":0},"name":"Tshirt-CS-79180-COTTON-DTF","sizes":["M","L","XL"],"supplier":{"location":"Surat","name":"Cryston India","rating":3},"variants":[{"cost":225,"details":{"color":"black","design_type":"DTF","material":"Cotton","rating":5},"edition":"standard","id":1,"name":"Spider-man","price":270,"stock":{"L":2,"M":0,"XL":1}},{"cost":225,"details":{"color":"white","design_type":"DTF","material":"Cotton","rating":3},"edition":"standard","id":2,"name":"Eagle design","price":270,"stock":{"L":23,"M":10,"XL":11}},{"cost":205,"details":{"color":"black","design_type":"DTF","material":"Cotton","rating":3},"edition":"standard","id":3,"name":"Terminator","price":250,"stock":{"L":3,"M":1,"XL":11}},{"cost":210,"details":{"design_type":"DTF","material":"Cotton","rating":4},"edition":"standard","id":4,"name":"Level","price":250,"stock":30},{"cost":210,"details":{"color":"white","design_type":"DTF","material":"Cotton","rating":3},"edition":"limited","id":5,"name":"Disclosure","price":250,"stock":{"L":2,"M":10,"XL":11}}]},
-      {"availability":"not available","batchcost":175,"batchid":2,"batchprice":250,"colors":{"black":{"L":23,"M":10,"XL":11},"white":{"L":5,"M":3,"XL":7}},"created":{"T":0,"I":0},"name":"Tshirt-CS-79180-COTTON-PLAIN","sizes":["M","L","XL"],"supplier":{"location":"Surat","name":"Cryston India","rating":3},"variants":[{"cost":175,"details":{"color":"white","design_type":"Plain","material":"Cotton","rating":3},"edition":"plain","id":6,"name":"Plain Variant","price":220,"stock":{"L":2,"M":10,"XL":11}}]}
-    ];
+    // Fetch JSON data from inventory.json
+    fetch('inventory.json')
+      .then(response => response.json())
+      .then(jsonData => {
+        // Parse batchId from query parameter
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const batchId = urlParams.get('batchId');
 
-    // Parse batchId from query parameter
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const batchId = urlParams.get('batchId');
+        // Filter variants for the selected batch
+        const selectedBatch = jsonData.find(item => item.batchid == batchId);
+        const variantsData = selectedBatch ? selectedBatch.variants : [];
 
-    // Filter variants for the selected batch
-    const selectedBatch = jsonData.find(item => item.batchid == batchId);
-    const variantsData = selectedBatch ? selectedBatch.variants : [];
+        // Create table dynamically
+        const tableContainer = document.getElementById('variants-table-container');
+        const table = document.createElement('table');
+        const thead = document.createElement('thead');
+        const tbody = document.createElement('tbody');
 
-    // Create table dynamically
-    const tableContainer = document.getElementById('variants-table-container');
-    const table = document.createElement('table');
-    const thead = document.createElement('thead');
-    const tbody = document.createElement('tbody');
+        // Create table header
+        const headerRow = document.createElement('tr');
+        const keys = Object.keys(variantsData[0]);
 
-    // Create table header
-    const headerRow = document.createElement('tr');
-    const keys = Object.keys(variantsData[0]);
-    
-    // Move 'NAME' column to the first position
-    keys.splice(keys.indexOf('name'), 1);
-    keys.unshift('name');
-    
-    keys.forEach(key => {
-      const th = document.createElement('th');
-      th.textContent = key.toUpperCase();
-      headerRow.appendChild(th);
-    });
-    thead.appendChild(headerRow);
+        // Move 'NAME' column to the first position
+        keys.splice(keys.indexOf('name'), 1);
+        keys.unshift('name');
 
-    // Create table rows
-    variantsData.forEach(item => {
-      const row = document.createElement('tr');
-      keys.forEach(key => {
-        const td = document.createElement('td');
-        const value = item[key];
-        if (key === 'details' && typeof value === 'object') {
-          // Handle 'DETAILS' field with nested table
-          const nestedTable = document.createElement('table');
-          nestedTable.classList.add('nested-table');
-          const nestedTbody = document.createElement('tbody');
-          Object.entries(value).forEach(([detailKey, detailValue]) => {
-            const nestedRow = document.createElement('tr');
-            const nestedKeyCell = document.createElement('td');
-            nestedKeyCell.textContent = detailKey.charAt(0).toUpperCase() + detailKey.slice(1);
-            const nestedValueCell = document.createElement('td');
-            nestedValueCell.textContent = detailValue;
-            nestedRow.appendChild(nestedKeyCell);
-            nestedRow.appendChild(nestedValueCell);
-            nestedTbody.appendChild(nestedRow);
+        // Add 'DETAILS' and 'STOCK' columns to the header
+        keys.push('details', 'stock');
+
+        keys.forEach(key => {
+          const th = document.createElement('th');
+          th.textContent = key.toUpperCase();
+          headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+
+        // Create table rows
+        variantsData.forEach(item => {
+          const row = document.createElement('tr');
+          keys.forEach(key => {
+            const td = document.createElement('td');
+            const value = item[key];
+            if (key === 'details' && typeof value === 'object') {
+              // Handle 'DETAILS' field with nested table
+              const nestedTable = document.createElement('table');
+              nestedTable.classList.add('nested-table');
+              const nestedTbody = document.createElement('tbody');
+              Object.entries(value).forEach(([detailKey, detailValue]) => {
+                const nestedRow = document.createElement('tr');
+                const nestedKeyCell = document.createElement('td');
+                nestedKeyCell.textContent = detailKey.charAt(0).toUpperCase() + detailKey.slice(1);
+                const nestedValueCell = document.createElement('td');
+                nestedValueCell.textContent = detailValue;
+                nestedRow.appendChild(nestedKeyCell);
+                nestedRow.appendChild(nestedValueCell);
+                nestedTbody.appendChild(nestedRow);
+              });
+              nestedTable.appendChild(nestedTbody);
+              td.appendChild(nestedTable);
+            } else if (key === 'stock' && typeof value === 'object') {
+              // Handle 'STOCK' field with nested table
+              const nestedTable = document.createElement('table');
+              nestedTable.classList.add('nested-table');
+              const nestedTbody = document.createElement('tbody');
+              Object.entries(value).forEach(([size, quantity]) => {
+                const nestedRow = document.createElement('tr');
+                const nestedSizeCell = document.createElement('td');
+                nestedSizeCell.textContent = size;
+                const nestedQuantityCell = document.createElement('td');
+                nestedQuantityCell.textContent = quantity;
+                nestedRow.appendChild(nestedSizeCell);
+                nestedRow.appendChild(nestedQuantityCell);
+                nestedTbody.appendChild(nestedRow);
+              });
+              nestedTable.appendChild(nestedTbody);
+              td.appendChild(nestedTable);
+            } else if (typeof value === 'object' && !Array.isArray(value)) {
+              // Handle nested objects (excluding arrays)
+              td.textContent = JSON.stringify(value);
+            } else if (Array.isArray(value)) {
+              // Handle arrays
+              td.textContent = value.join(', ');
+            } else {
+              td.textContent = value;
+            }
+            row.appendChild(td);
           });
-          nestedTable.appendChild(nestedTbody);
-          td.appendChild(nestedTable);
-        } else if (key === 'stock' && typeof value === 'object') {
-          // Handle 'STOCK' field with nested table
-          const nestedTable = document.createElement('table');
-          nestedTable.classList.add('nested-table');
-          const nestedTbody = document.createElement('tbody');
-          Object.entries(value).forEach(([size, quantity]) => {
-            const nestedRow = document.createElement('tr');
-            const nestedSizeCell = document.createElement('td');
-            nestedSizeCell.textContent = size;
-            const nestedQuantityCell = document.createElement('td');
-            nestedQuantityCell.textContent = quantity;
-            nestedRow.appendChild(nestedSizeCell);
-            nestedRow.appendChild(nestedQuantityCell);
-            nestedTbody.appendChild(nestedRow);
-          });
-          nestedTable.appendChild(nestedTbody);
-          td.appendChild(nestedTable);
-        } else if (typeof value === 'object' && !Array.isArray(value)) {
-          // Handle nested objects (excluding arrays)
-          td.textContent = JSON.stringify(value);
-        } else if (Array.isArray(value)) {
-          // Handle arrays
-          td.textContent = value.join(', ');
-        } else {
-          td.textContent = value;
-        }
-        row.appendChild(td);
-      });
-      tbody.appendChild(row);
-    });
+          tbody.appendChild(row);
+        });
 
-    // Append thead and tbody to the table
-    table.appendChild(thead);
-    table.appendChild(tbody);
+        // Append thead and tbody to the table
+        table.appendChild(thead);
+        table.appendChild(tbody);
 
-    // Append the table to the container
-    tableContainer.appendChild(table);
+        // Append the table to the container
+        tableContainer.appendChild(table);
+      })
+      .catch(error => console.error('Error fetching JSON:', error));
   </script>
 
 </body>
