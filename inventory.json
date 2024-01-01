@@ -116,18 +116,10 @@
         "batchcost": 175,
         "batchid": 2,
         "batchprice": 250,
-        "colors": {
-            "black": {
-                "L": 23,
-                "M": 10,
-                "XL": 11
-            },
-            "white": {
-                "L": 5,
-                "M": 3,
-                "XL": 7
-            }
-        },
+        "colors":[
+            "black",
+            "white"
+        ]
         "created": {
             "T": 0,
             "I": 0
