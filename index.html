@@ -77,8 +77,8 @@
   <div class="table-container" id="table-container"></div>
 
   <script>
-    // Fetch JSON data from inventory.json
-    fetch('inventory.json')
+    // Fetch JSON data from GitHub Pages (replace 'your-username' and 'your-repository' with your GitHub username and repository name)
+    fetch('https://raw.githubusercontent.com/your-username/your-repository/main/inventory.json')
       .then(response => response.json())
       .then(jsonData => {
         const tableContainer = document.getElementById('table-container');
