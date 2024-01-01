@@ -4,20 +4,13 @@
         "batchcost": 200,
         "batchid": 1,
         "batchprice": 250,
-        "colors": [
-            "black",
-            "white"
-        ],
+        "colors": ["black", "white"],
         "created": {
             "T": 0,
             "I": 0
         },
         "name": "Tshirt-CS-79180-COTTON-DTF",
-        "sizes": [
-            "M",
-            "L",
-            "XL"
-        ],
+        "sizes": ["M", "L", "XL"],
         "supplier": {
             "location": "Surat",
             "name": "Cryston India",
@@ -116,20 +109,13 @@
         "batchcost": 175,
         "batchid": 2,
         "batchprice": 250,
-        "colors":[
-            "black",
-            "white"
-        ]
+        "colors": ["black", "white"],
         "created": {
             "T": 0,
             "I": 0
         },
         "name": "Tshirt-CS-79180-COTTON-PLAIN",
-        "sizes": [
-            "M",
-            "L",
-            "XL"
-        ],
+        "sizes": ["M", "L", "XL"],
         "supplier": {
             "location": "Surat",
             "name": "Cryston India",
