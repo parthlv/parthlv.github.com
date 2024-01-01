@@ -74,6 +74,7 @@
             {
                 "cost": 210,
                 "details": {
+                    "color": "black",
                     "design_type": "DTF",
                     "material": "Cotton",
                     "rating": 4
