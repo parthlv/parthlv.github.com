@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tshirt variant Information</title>
+  <title>Variant Information</title>
   <style>
     body {
       font-family: Monaco, monospace;
@@ -67,7 +67,7 @@
 
 <body>
 
-  <h1>Tshirt Variant Information</h1>
+  <h1>Variant Information</h1>
 
   <div class="table-container" id="variants-table-container"></div>
 
@@ -100,7 +100,12 @@
         keys.unshift('name');
 
         // Add 'DETAILS' and 'STOCK' columns to the header
-        keys.push('details', 'stock');
+        if (keys.indexOf('details') === -1) {
+          keys.push('details');
+        }
+        if (keys.indexOf('stock') === -1) {
+          keys.push('stock');
+        }
 
         keys.forEach(key => {
           const th = document.createElement('th');
