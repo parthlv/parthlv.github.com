@@ -97,8 +97,10 @@
         keys.splice(keys.indexOf('name'), 1);
         keys.unshift('name');
 
-        // Add 'SUPPLIER' column to the header
-        keys.push('supplier');
+        // Add 'SUPPLIER' column to the header if not present
+        if (!keys.includes('supplier')) {
+          keys.push('supplier');
+        }
 
         keys.forEach(key => {
           const th = document.createElement('th');
