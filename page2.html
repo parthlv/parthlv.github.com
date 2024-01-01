@@ -73,14 +73,9 @@
 
   <script>
     // Fetch JSON data from inventory.json
- fetch('https://raw.githubusercontent.com/parthlv/parthlv.github.io/main/inventory.json')
+    fetch('https://raw.githubusercontent.com/parthlv/parthlv.github.io/main/inventory.json')
       .then(response => response.json())
       .then(jsonData => {
-        const tableContainer = document.getElementById('table-container');
-        const table = document.createElement('table');
-        const thead = document.createElement('thead');
-        const tbody = document.createElement('tbody');
-
         // Parse batchId from query parameter
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
