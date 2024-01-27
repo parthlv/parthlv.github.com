@@ -1,15 +1,12 @@
 [
     {
-        "availability": "available",
+        "status": true,
         "batchcost": 200,
         "batchid": 1,
         "batchprice": 250,
         "colors": ["black", "white"],
-        "created": {
-            "T": 0,
-            "I": 0
-        },
-        "name": "Tshirt-CS-79180-COTTON-DTF",
+        "created": "2021-07-15T12:55:12.782Z",
+        "name": "STCO180G-DTF",
         "sizes": ["M", "L", "XL"],
         "supplier": {
             "location": "Surat",
@@ -110,16 +107,13 @@
         ]
     },
     {
-        "availability": "available",
+        "availability": true,
         "batchcost": 175,
         "batchid": 2,
         "batchprice": 250,
         "colors": ["black", "white"],
-        "created": {
-            "T": 0,
-            "I": 0
-        },
-        "name": "Tshirt-CS-79180-COTTON-PLAIN",
+        "created": "2021-07-15T12:55:12.782Z",
+        "name": "STCO180G-PLAIN",
         "sizes": ["M", "L", "XL"],
         "supplier": {
             "location": "Surat",
