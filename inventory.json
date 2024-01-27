@@ -1,12 +1,12 @@
 [
     {
-        "status": true,
+        "name": "STCO180G-DTF",
+        "availability": true,
         "batchcost": 200,
         "batchid": 1,
         "batchprice": 250,
         "colors": ["black", "white"],
         "created": "2021-07-15T12:55:12.782Z",
-        "name": "STCO180G-DTF",
         "sizes": ["M", "L", "XL"],
         "supplier": {
             "location": "Surat",
@@ -107,13 +107,13 @@
         ]
     },
     {
+        "name": "STCO180G-PLAIN",
         "availability": true,
         "batchcost": 175,
         "batchid": 2,
         "batchprice": 250,
         "colors": ["black", "white"],
         "created": "2021-07-15T12:55:12.782Z",
-        "name": "STCO180G-PLAIN",
         "sizes": ["M", "L", "XL"],
         "supplier": {
             "location": "Surat",
