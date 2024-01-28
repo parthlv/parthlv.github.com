@@ -1,95 +1,92 @@
-{ 
-    "variants":
-    [
-        {
-            "cost": 225,
-            "details": {
-                "color": "black",
-                "design_type": "DTF",
-                "material": "Cotton",
-                "rating": 5
-            },
-            "edition": "standard",
-            "id": 1,
-            "name": "Spider-man",
-            "price": 270,
-            "stock": {
-                "L": 2,
-                "M": 5,
-                "XL": 1
-            }
+[
+    {
+        "cost": 225,
+        "details": {
+            "color": "black",
+            "design_type": "DTF",
+            "material": "Cotton",
+            "rating": 5
         },
-        {
-            "cost": 225,
-            "details": {
-                "color": "white",
-                "design_type": "DTF",
-                "material": "Cotton",
-                "rating": 3
-            },
-            "edition": "standard",
-            "id": 2,
-            "name": "Eagle design",
-            "price": 270,
-            "stock": {
-                "L": 23,
-                "M": 10,
-                "XL": 11
-            }
-        },
-        {
-            "cost": 205,
-            "details": {
-                "color": "black",
-                "design_type": "DTF",
-                "material": "Cotton",
-                "rating": 3
-            },
-            "edition": "standard",
-            "id": 3,
-            "name": "Terminator",
-            "price": 250,
-            "stock": {
-                "L": 3,
-                "M": 1,
-                "XL": 11
-            }
-        },
-        {
-            "cost": 210,
-            "details": {
-                "color": "black",
-                "design_type": "DTF",
-                "material": "Cotton",
-                "rating": 4
-            },
-            "edition": "standard",
-            "id": 4,
-            "name": "Level",
-            "price": 250,
-            "stock": {
-                "L": 2,
-                "M": 5,
-                "XL": 1
-            }
-        },
-        {
-            "cost": 210,
-            "details": {
-                "color": "white",
-                "design_type": "DTF",
-                "material": "Cotton",
-                "rating": 3
-            },
-            "edition": "limited",
-            "id": 5,
-            "name": "Disclosure",
-            "price": 250,
-            "stock": {
-                "L": 2,
-                "M": 10,
-                "XL": 11
-            }
+        "edition": "standard",
+        "id": 1,
+        "name": "Spider-man",
+        "price": 270,
+        "stock": {
+            "L": 2,
+            "M": 5,
+            "XL": 1
         }
-    ]
-}
+    },
+    {
+        "cost": 225,
+        "details": {
+            "color": "white",
+            "design_type": "DTF",
+            "material": "Cotton",
+            "rating": 3
+        },
+        "edition": "standard",
+        "id": 2,
+        "name": "Eagle design",
+        "price": 270,
+        "stock": {
+            "L": 23,
+            "M": 10,
+            "XL": 11
+        }
+    },
+    {
+        "cost": 205,
+        "details": {
+            "color": "black",
+            "design_type": "DTF",
+            "material": "Cotton",
+            "rating": 3
+        },
+        "edition": "standard",
+        "id": 3,
+        "name": "Terminator",
+        "price": 250,
+        "stock": {
+            "L": 3,
+            "M": 1,
+            "XL": 11
+        }
+    },
+    {
+        "cost": 210,
+        "details": {
+            "color": "black",
+            "design_type": "DTF",
+            "material": "Cotton",
+            "rating": 4
+        },
+        "edition": "standard",
+        "id": 4,
+        "name": "Level",
+        "price": 250,
+        "stock": {
+            "L": 2,
+            "M": 5,
+            "XL": 1
+        }
+    },
+    {
+        "cost": 210,
+        "details": {
+            "color": "white",
+            "design_type": "DTF",
+            "material": "Cotton",
+            "rating": 3
+        },
+        "edition": "limited",
+        "id": 5,
+        "name": "Disclosure",
+        "price": 250,
+        "stock": {
+            "L": 2,
+            "M": 10,
+            "XL": 11
+        } 
+    }
+]   
